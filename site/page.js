@@ -32,6 +32,13 @@
   });
   activate(window.location.hash.slice(1), false);
 
+  // Open all query details when printing.
+  window.addEventListener('beforeprint', function () {
+    Array.prototype.forEach.call(document.querySelectorAll('details'), function (d) {
+      d.setAttribute('open', '');
+    });
+  });
+
   // Copy buttons for query blocks.
   Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function (btn) {
     btn.addEventListener('click', function () {

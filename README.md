@@ -6,6 +6,7 @@ Vertrekpunt is het doorlopen van 1 aanvalsvorm: ClickFix. Maar de aanpak is bred
 Dit document is deels **managerial** (regie, strategie, besluitvorming) en deels **technisch**
 (analyses op het Microsoft-platform, configuratie-analyse van firewalls en core-routers, herbruikbare query's).
 
+<!-- site:hide -->
 **Liever lezen zonder GitHub of Markdown?** De volledige methode staat als leesbare webpagina op
 <https://security-commons-nl.github.io/Handelingsperspectief/> — automatisch bijgewerkt bij elke wijziging hier.
 
