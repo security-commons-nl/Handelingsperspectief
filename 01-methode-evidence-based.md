@@ -8,8 +8,8 @@ Deze aanpak is opzettelijk nuchter. Geen catchy oneliners, wel toetsbare stappen
 Voordat je een maatregel afdwingt (Win+R uit, PowerShell beperken, een firewallregel versmallen), stel je het
 feitelijke gebruik vast. Dat doet twee dingen: het laat de werkelijke impact zien (meestal kleiner dan gevreesd)
 en het voorkomt dat je legitiem werk of beheer breekt. Een voorbeeld uit de praktijk: van miljoenen
-PowerShell-starts in een maand bleek bijna 99% machine-automatisering — waaronder de eigen sensor van de
-endpointbescherming. Een botte blokkade had de eigen beveiliging gebroken.
+PowerShell-starts in een maand bleek bij een gemeente bijna 99% machine-automatisering — waaronder de eigen sensor 
+van de endpointbescherming. Een botte blokkade had de eigen beveiliging gebroken.
 
 ### 2. Vertrouw op data, niet op tekeningen
 Een netwerktekening toont de bedoeling, niet de werkelijkheid. "We hebben ASR aanstaan" is een aanname totdat
@@ -28,15 +28,19 @@ Toets elke maatregel op vier niveaus van oplopende zekerheid:
 | **Werking** | Is hij aantoonbaar effectief in de praktijk? |
 | **Config beschikbaar** | Kunnen wíj de instelling zelf inzien? |
 
+## Managed dienstverlening is meer dan de aanknop indrukken
 Een "managed" dienst omvat gedurende de hele levenscyclus: bijhouden (updates, dreigingsinfo), beheren
 (configuratie, afwijkingen, prestaties), optimaliseren, functionaliteit aanpassen, en verantwoorden
 (rapportage, eigenaarschap). Een tool installeren met standaardinstellingen is daarvan alleen de eerste stap.
+Als de dienstverlening managed is gecontracteerd dan is de optielijst klein, een fireall waar de regelset
+niet periodiek wordt gevalideerd en voorzien wordt van een risicoletter aan de klant waar nodig is **geen managed** 
+dienst.
 
 ## IST → SOLL als werkvorm
 
 Beschrijf per component de huidige stand (IST) en de gewenste stand (SOLL), met een statuskleur en een
 actiehouder. Houd de SOLL-ambitie expliciet: een verdedigbare ondergrens (richting BIO2 en audit) is iets
-anders dan "goede praktijk". Maak die keuze bewust, anders overvraag je de organisatie.
+anders dan "best-practice". Maak die keuze bewust, anders overvraag je de organisatie.
 
 Sjabloon:
 
