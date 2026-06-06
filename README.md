@@ -6,6 +6,9 @@ Vertrekpunt is het doorlopen van 1 aanvalsvorm: ClickFix. Maar de aanpak is bred
 Dit document is deels **managerial** (regie, strategie, besluitvorming) en deels **technisch**
 (analyses op het Microsoft-platform, configuratie-analyse van firewalls en core-routers, herbruikbare query's).
 
+**Liever lezen zonder GitHub of Markdown?** De volledige methode staat als leesbare webpagina op
+<https://security-commons-nl.github.io/Handelingsperspectief/> — automatisch bijgewerkt bij elke wijziging hier.
+
 > Gegeneraliseerd uit een concrete gemeentelijke casus. Pas de voorbeelden aan op je eigen gemeente, leverandiers,
 > en tenant. Let bij maatregelen die verkeer of gebruik inzichtelijk maken
 > (zoals TLS-decryptie of script-logging) op privacy, BIO2 en eventuele OR-/medezeggenschapstrajecten.
@@ -63,6 +66,7 @@ Dit project is gelicentieerd onder de [EUPL-1.2](LICENSE) (European Union Public
 
 | Software / afhankelijkheid | Gebruik | Licentie |
 |---|---|---|
-| — | Deze repository bevat uitsluitend documentatie (Markdown) en KQL-query's; er zijn geen software­afhankelijkheden | n.v.t. |
+| [marked](https://github.com/markedjs/marked) 18.0.5 | Markdown-naar-HTML-conversie in de sitebuild (alleen buildtijd, niet in de gepubliceerde pagina) | MIT |
+| GitHub Actions (`actions/checkout`, `actions/setup-node`, `actions/upload-pages-artifact`, `actions/deploy-pages`) | Automatische build en publicatie naar GitHub Pages | MIT |
 
 De KQL-query's zijn bedoeld voor uitvoering in Microsoft Defender Advanced Hunting; daarvoor gelden de licentievoorwaarden van je eigen Microsoft-tenant.
