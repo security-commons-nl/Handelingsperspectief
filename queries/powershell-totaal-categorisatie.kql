@@ -1,0 +1,24 @@
+// powershell-totaal-categorisatie.kql
+// Doel: exacte verhouding automatisering vs. interactief PowerShell-gebruik over 30 dagen.
+// Server-side aggregatie via een vooraf berekend totaal -> geen exportlimiet, dus exacte percentages.
+// Pas de parent-processen in de case() aan op je eigen omgeving (dev-/AI-tooling verschilt per organisatie).
+// Vereist: Microsoft Defender for Endpoint + Advanced Hunting (DeviceProcessEvents).
+
+let totaal = toscalar(
+    DeviceProcessEvents
+    | where Timestamp > ago(30d)
+    | where FileName in~ ("powershell.exe", "pwsh.exe", "powershell_ise.exe")
+    | count);
+DeviceProcessEvents
+| where Timestamp > ago(30d)
+| where FileName in~ ("powershell.exe", "pwsh.exe", "powershell_ise.exe")
+| extend Categorie = case(
+    ProcessCommandLine has "IMECache" or ProcessCommandLine has "HealthScript", "Intune Health/Remediation",
+    InitiatingProcessFileName endswith "senseir.exe", "Defender-sensor",                       // MDE eigen sensor
+    InitiatingProcessFileName has "intune" or InitiatingProcessFileName =~ "agentexecutor.exe", "Intune-agent",
+    InitiatingProcessAccountName in~ ("system", "local service", "network service"), "Overige SYSTEM-automatisering",
+    InitiatingProcessFileName in~ ("explorer.exe","cmd.exe","windowsterminal.exe","code.exe","cursor.exe","codex.exe"), "Interactief/dev",
+    "Overig/onbekend")
+| summarize Aantal = count() by Categorie
+| extend Percentage = round(100.0 * Aantal / totaal, 1)
+| sort by Aantal desc

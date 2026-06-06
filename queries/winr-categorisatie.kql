@@ -1,0 +1,22 @@
+// winr-categorisatie.kql
+// Doel: het Win+R-gebruik gegroepeerd naar soort, zodat je in één oogopslag ziet of er risicovol
+// (script/shell) gebruik tussen zit. Geen treffers in "Script/shell" = ClickFix-patroon niet aangetroffen.
+// Vereist: DeviceRegistryEvents.
+
+DeviceRegistryEvents
+| where Timestamp > ago(30d)
+| where ActionType == "RegistryValueSet"
+| where RegistryKey has @"Explorer\RunMRU"
+| where RegistryValueName != "MRUList"
+| extend c = tolower(replace_string(RegistryValueData, @"\1", ""))
+| extend Categorie = case(
+    c has_any ("powershell","pwsh","mshta","-enc","iex","invoke-expression","frombase64","curl"), "Script/shell (ClickFix-risico)",
+    c startswith @"\\", "Netwerkshare",
+    c startswith "http" or c has "://", "URL",
+    c has_any (".msc","regedit","control","gpedit","eventvwr","services","taskmgr"), "Systeembeheer",
+    c has "mstsc", "Remote desktop",
+    c matches regex @"^[a-z]:\\", "Bestandspad",
+    c has ".exe", "Applicatie",
+    "Overig")
+| summarize Aantal = count(), Gebruikers = dcount(InitiatingProcessAccountName) by Categorie
+| sort by Aantal desc

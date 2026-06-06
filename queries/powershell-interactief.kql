@@ -1,0 +1,21 @@
+// powershell-interactief.kql
+// Doel: het feitelijke interactieve PowerShell-gebruik per gebruiker, met automatisering/ruis weggefilterd.
+// Gebruik dit om vast te stellen WIE interactief gebruikt (vaak een kleine groep ontwikkelaars) voordat je
+// PowerShell beheerst met Constrained Language Mode. Pas de uitsluitingen aan op je omgeving.
+
+DeviceProcessEvents
+| where Timestamp > ago(30d)
+| where FileName in~ ("powershell.exe", "pwsh.exe", "powershell_ise.exe")
+| where AccountName !in~ ("system", "local service", "network service")
+| where InitiatingProcessFileName !~ "wscript.exe"
+| where ProcessCommandLine !has @"\ProgramData\"
+| where ProcessCommandLine !has "STARTU~1" and ProcessCommandLine !has @"\Startup\"
+| where InitiatingProcessFileName !has "setup"
+| where InitiatingProcessFileName !endswith ".tmp"
+| where InitiatingProcessFileName !in~ ("msiexec.exe", "updater.exe", "installer.exe")
+| where ProcessCommandLine !has "IMECache" and ProcessCommandLine !has @"\CCM\"
+| summarize PowerShellStarts = count(),
+            Tools = make_set(InitiatingProcessFileName, 15),
+            LastSeen = max(Timestamp)
+        by AccountName, AccountDomain
+| sort by PowerShellStarts desc

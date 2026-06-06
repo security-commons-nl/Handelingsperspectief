@@ -1,0 +1,17 @@
+// winr-runmru-top.kql
+// Doel: wat typen gebruikers werkelijk in de Win+R (Run) dialoog. Leest de RunMRU-registersleutel uit.
+// Gebruik dit om de impact van het uitschakelen van Win+R (NoRun) in te schatten: laag volume en uitsluitend
+// beheer-/power-usergebruik betekent lage impact. Let op script-/shell-commando's (ClickFix-indicatie).
+// Vereist: DeviceRegistryEvents.
+
+DeviceRegistryEvents
+| where Timestamp > ago(30d)
+| where ActionType == "RegistryValueSet"
+| where RegistryKey has @"Explorer\RunMRU"
+| where RegistryValueName != "MRUList"
+| extend Command = replace_string(RegistryValueData, @"\1", "")
+| summarize Aantal = count(),
+            Gebruikers = dcount(InitiatingProcessAccountName),
+            LaatsteKeer = max(Timestamp)
+        by Command
+| sort by Aantal desc

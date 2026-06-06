@@ -1,0 +1,30 @@
+// clickfix-detectie.kql
+// Doel: alarmeren op het ClickFix-patroon — een verdacht commando dat in de Win+R-dialoog verschijnt en kort
+// daarna daadwerkelijk wordt uitgevoerd vanuit explorer.exe. Geschikt als basis voor een custom detection rule.
+// Vereist: DeviceRegistryEvents + DeviceProcessEvents.
+//
+// Bewuste beperkingen (verbreed naar wens):
+//  - ziet alleen het Win+R-pad (geen plak-in-terminal of adresbalk);
+//  - alleen de genoemde binaries; voeg rundll32/regsvr32/wscript/cscript/certutil/bitsadmin toe indien gewenst;
+//  - alleen een explorer-parent.
+
+let lookback = 2h;
+let verdacht = dynamic(["powershell","pwsh","mshta","curl","iwr",
+    "invoke-expression","iex","frombase64","-enc","-encodedcommand",
+    "-w hidden","-windowstyle hidden","cmd /c"]);
+let runmru = DeviceRegistryEvents
+    | where Timestamp > ago(lookback)
+    | where ActionType == "RegistryValueSet"
+    | where RegistryKey has @"Explorer\RunMRU"
+    | where RegistryValueName != "MRUList"
+    | where RegistryValueData has_any (verdacht)
+    | project RunTime = Timestamp, DeviceId, RunData = RegistryValueData;
+DeviceProcessEvents
+| where Timestamp > ago(lookback)
+| where InitiatingProcessFileName =~ "explorer.exe"
+| where FileName in~ ("powershell.exe","pwsh.exe","mshta.exe","cmd.exe","curl.exe")
+| join kind=inner runmru on DeviceId
+| where Timestamp between ((RunTime - 1m) .. (RunTime + 5m))
+| project Timestamp, ReportId, DeviceId, DeviceName,
+          AccountName, AccountUpn = InitiatingProcessAccountUpn,
+          FileName, ProcessCommandLine, RunData

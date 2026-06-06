@@ -1,0 +1,24 @@
+// mshta-gebruik.kql
+// Doel: vaststellen of en hoe mshta wordt gebruikt. mshta is een veelgebruikt ClickFix-kanaal en in moderne
+// kantooromgevingen zelden nog nodig. Weinig/geen goedaardige treffers = blokkeren heeft lage impact.
+// Vereist: DeviceProcessEvents.
+
+// --- Query 1: gebruik en herkomst van mshta ---
+DeviceProcessEvents
+| where Timestamp > ago(30d)
+| where FileName =~ "mshta.exe"
+| extend Verdacht = case(
+    ProcessCommandLine has_any ("http","https","javascript:","vbscript:","FromBase64"), "Ja - extern/script",
+    ProcessCommandLine has ".hta", "Mogelijk - .hta-bestand",
+    "Onwaarschijnlijk")
+| project Timestamp, DeviceName, AccountName,
+          GestartVanuit = InitiatingProcessFileName, ProcessCommandLine, Verdacht
+| sort by Timestamp desc
+
+// --- Query 2 (apart draaien): wat start mshta zélf op (sterk signaal) ---
+// DeviceProcessEvents
+// | where Timestamp > ago(30d)
+// | where InitiatingProcessFileName =~ "mshta.exe"
+// | project Timestamp, DeviceName, AccountName,
+//           Kindproces = FileName, ProcessCommandLine, MshtaCommand = InitiatingProcessCommandLine
+// | sort by Timestamp desc
