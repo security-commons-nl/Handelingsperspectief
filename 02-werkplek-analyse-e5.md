@@ -5,25 +5,29 @@ Dit hoofdstuk beschrijft welke analyses je daarmee kunt doen, en hoe je "aan" on
 
 De query's staan in [`queries/`](queries/). Pas de parent-processen en uitsluitingen aan op je eigen omgeving.
 
+Je werkplekken moeten natuurlijk wel via Intune beheerst zijn zodat de telemetrie in het defender portal land.
+Sta je nog onbeheerde BYOD zonder enige vorm van regelset toe (zogenaamde MaM en CA) dan is er echt nog heel veel
+werk aan de winkel. Start dan zeker hier, maar besef je dat je een groot blind gat hebt.
+
 ## A. Configuratie verifiëren (aan ≠ gekoppeld en actief)
 
-Loop deze punten langs. Het zijn veelvoorkomende blinde vlekken.
+Loop deze punten langs. Het zijn veelvoorkomende blinde vlekken in Endpoint Detection.
 
 - **ASR (Attack Surface Reduction).** Bestaan er regels, staan ze in **block**-modus, en zijn ze gekoppeld aan
   de **juiste gebruikersgroep**? Het komt voor dat er regels bestaan die aan geen of een verkeerde groep hangen
   en dus niets doen. Controleer specifiek of er een regel is tegen *credential stealing from LSASS*. De
-  configuratiestatus is per device zichtbaar via `DeviceTvmSecureConfigurationAssessment`.
+  configuratiestatus is per device zichtbaar via `DeviceTvmSecureConfigurationAssessment` in het security portal.
 - **AMSI.** Script scanning staat standaard aan, maar wordt vaak niet bewust ingericht of geverifieerd.
   Bevestig en leg vast.
 - **LSA protection.** Vaak niet geconfigureerd. Zet aan en zorg dat misbruik een signaal oplevert.
 - **Script-block-logging (EID 4104).** Vaak niet ingericht. Voeg toe als aanvullende bron naar de SIEM; MDE
   heeft bekende blinde vlekken die je hiermee afdekt.
 - **Autorun/autoplay op endpoints.** Controleer de feitelijke stand (niet de aanname). Op servers is dit vaak
-  uit via een hardening-baseline; op endpoints staat het regelmatig nog op default.
+  uit via een hardening-baseline; op endpoints staat het regelmatig nog op default=aan.
 
 ## B. PowerShell — meet voordat je beperkt
 
-PowerShell wil je beheersen, niet bot blokkeren. De reden blijkt uit de data.
+PowerShell wil je beheersen, niet bot blokkeren. De reden blijkt vaak uit de data.
 
 1. Draai [`queries/powershell-totaal-categorisatie.kql`](queries/powershell-totaal-categorisatie.kql). Dit geeft
    de **exacte** verhouding automatisering vs. interactief (server-side geaggregeerd, dus zonder exportlimiet).
@@ -39,15 +43,16 @@ laden, directe API-aanroepen) die aanvalspayloads nodig hebben. Een trustmodel (
 automatisch of een script volledig of beperkt draait, in plaats van een handmatige uitzonderingenlijst. Geef de
 ontwikkelaarsgroep één afgebakende, tijdelijke uitzondering. Begin in **auditmodus**.
 
-## C. Win+R (Run-dialoog)
+## C. Win+R (Run-dialoog/het utivoeren venster)
 
 Draai [`queries/winr-runmru-top.kql`](queries/winr-runmru-top.kql) en
 [`queries/winr-categorisatie.kql`](queries/winr-categorisatie.kql). Deze lezen de RunMRU-registersleutel uit:
 wat typen gebruikers werkelijk in Win+R.
 
 Verwacht beeld: een laag volume, vrijwel uitsluitend beheer- en power-usergebruik (beheerconsoles,
-netwerkshares, applicaties). Als er **geen** script- of shell-commando's tussen staan, is het ClickFix-patroon
-in je data niet aangetroffen en is de impact van uitschakelen laag.
+netwerkshares, applicaties). Veel van de gebruikers zullen het niet leuk vinden maar er breekt vaak niets
+als je het uitzet maar het **voorkomt** een essentiele stap die ClickFix nodig heeft om voeten aan de grond
+te krijgen.
 
 **Advies:** schakel Win+R uit via beleid (NoRun, via Intune of GPO). Stem vooraf af met beheer of er
 workflows zijn die op Win+R leunen (bijvoorbeeld het springen naar uitrol-/softwaremappen).
