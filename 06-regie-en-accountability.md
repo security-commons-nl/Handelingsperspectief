@@ -20,7 +20,10 @@ leverancier "ermee bezig is geweest". Dat verandert hoe je opdrachten formuleert
 
 ## Regie beleggen (voorbeeldindeling)
 
-Beleg de regie intern; de uitvoering ligt doorgaans bij beheerpartners. Een werkbare indeling:
+Beleg de regie intern; de uitvoering ligt steeds vaker bij beheerpartners. Intern beheer van deze componenten zorg
+voor een goede 3e lijns functie!
+
+Een werkbare indeling:
 
 | Onderwerp | Interne regie (accountable) | Uitvoering (voorbeeld) |
 |---|---|---|
