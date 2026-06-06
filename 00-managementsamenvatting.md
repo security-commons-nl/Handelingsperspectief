@@ -37,14 +37,14 @@ eigenaarschap**:
 
 De boodschap voor besluitvorming: **eerst afmaken en aantoonbaar maken wat er al is, daarna uitbreiden.**
 
-## Strategische keuze: dichttimmeren of veilig faciliteren
+## Strategische keuze: reguleren (lockdown) of veilig faciliteren
 
-Er zijn grofweg twee richtingen. Dichttimmeren (het apparaat zoveel mogelijk beheersen/beperken) en veilig faciliteren
+Er zijn grofweg twee richtingen. Reguleren (lockdown: het apparaat zoveel mogelijk beheersen/beperken) en veilig faciliteren
 (de bescherming in het platform leggen en de grens verschuiven van het apparaat naar data en identiteit).
 
 Voor een politiek-ambtelijke organisatie is veilig faciliteren vaak duurzamer, omdat het minder leunt op
 "nee" en daardoor minder uitzonderingen en schaduw-IT uitlokt. Tegen ClickFix is het, mits goed ingericht,
-ook gerichter — **een dichtgetimmerde laptop stopt ClickFix niet**, omdat de aanval in gebruikerscontext draait.
+ook gerichter — **een laptop in lockdown stopt ClickFix niet**, omdat de aanval in gebruikerscontext draait.
 
 De eerlijke voorwaarde: veilig faciliteren is operationeel **zwaarder**, niet lichter. Het ruilt eenmalige
 restrictie in voor continu beheer. Het is alleen duurzaam als de eigen capaciteit of regiecapaciteit (bij uitbestede ICT)

@@ -29,7 +29,7 @@ Loop deze punten langs:
 - **Privileged Identity Management (PIM).** Just-in-time verhoogde rechten in plaats van staande rechten.
   Let op het aantal global admins; staande beheerrechten zonder PIM zijn een veelvoorkomend risico.
 - **Defender for Cloud Apps (MDCA).** Minimaal voor OAuth-/app-consentmisbruik en sowieso handig om schaduw Cloud-app gebruik
-  inzichtelijk te maken. Afhankelijk van de keuze "dichttimmeren" of "veilig faciliteren" blokkeer je app gebruik of ga je
+  inzichtelijk te maken. Afhankelijk van de keuze "reguleren (lockdown)" of "veilig faciliteren" blokkeer je app gebruik of ga je
   kijken naar de voorwaardes die nodig zijn de apps veilig te ondersteunen.
 - **User-consent voor non-verified apps.** Zet op "do not allow user consent". Dit is een eenvoudige,
   effectieve maatregel tegen malafide software die zich langdurig toegang tot de M365 wilt verschaffen.

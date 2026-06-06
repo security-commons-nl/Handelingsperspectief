@@ -30,7 +30,7 @@ Dit document is deels **managerial** (regie, strategie, besluitvorming) en deels
 | [04-netwerk-firewall-config-analyse.md](04-netwerk-firewall-config-analyse.md) | Security, netwerk | Firewalls en core-routers analyseren uit dáta |
 | [05-killchain-chokepoints.md](05-killchain-chokepoints.md) | Security | ClickFix-killchain en chokepoints (MITRE) |
 | [06-regie-en-accountability.md](06-regie-en-accountability.md) | Management, CISO | Regie, resultaatverplichting, RACI, leveranciers |
-| [07-veilig-faciliteren.md](07-veilig-faciliteren.md) | Bestuur, CISO | Langetermijnstrategie i.p.v. dichttimmeren |
+| [07-veilig-faciliteren.md](07-veilig-faciliteren.md) | Bestuur, CISO | Langetermijnstrategie i.p.v. reguleren (lockdown) |
 | [queries/](queries/) | Beheer, security | Herbruikbare KQL voor Advanced Hunting |
 
 ## Gebruik in AI
