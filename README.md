@@ -39,10 +39,10 @@ Dit document is deels **managerial** (regie, strategie, besluitvorming) en deels
 ## Gebruik in AI
 
 Deze repo is bedoeld als basis om mee te werken in je favoriete LLM, die van ons Claude Code (ja hyperscaler):
-> Heb je een betere lokale LLM op deftige hardware doe het dan daar in. Gaan AI gebruiken omdat je alles 100% zelf
-> kan en weet, helemaal top ! Kan je het niet 100% zelf en moet je AI gebruiken en niet de beschikking over deftige hardware
-> maak een risicoafweging. Wat is het risico op het niet gebruiken van een US AI (met het zetten van de juiste vinkjes) tov
-> niet gebruik vanwege mogelijk misbruik van de data door de US AI. 
+> Heb je een betere lokale LLM op deftige hardware, doe het dan daarin. Geen AI gebruiken omdat je alles 100% zelf
+> kunt en weet: helemaal top! Kun je het niet 100% zelf, moet je AI gebruiken en heb je niet de beschikking over deftige
+> hardware, maak dan een risicoafweging: wat is het risico van het níét gebruiken van een Amerikaanse AI (met de juiste
+> vinkjes gezet) ten opzichte van het risico van mogelijk misbruik van de data door die Amerikaanse AI?
 
 1. Clone of importeer de repo en open hem in Claude Code.
 2. Gebruik de bestanden in [`queries/`](queries/) als startpunt voor je eigen Advanced Hunting-analyses;
