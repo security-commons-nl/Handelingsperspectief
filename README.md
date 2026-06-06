@@ -1,13 +1,13 @@
 # Handelingsperspectief security posture voor gemeenten
 
-Een praktisch, herbruikbaar geheel om als gemeente je security posture **evidence-based** te verhogen.
-Vertrekpunt is de ClickFix-aanvalsvorm, maar de aanpak is breder toepasbaar: van de werkplek tot het netwerk.
+Een praktisch, herbruikbaar geheel om als gemeente je security posture **evidence-based** te verhogen, dus geen aanname maar gebasseerd op feiten.
+Vertrekpunt is het doorlopen van 1 aanvalsvorm: ClickFix. Maar de aanpak is breder toepasbaar: van de werkplek tot het netwerk.
 
 Dit document is deels **managerial** (regie, strategie, besluitvorming) en deels **technisch**
 (analyses op het Microsoft-platform, configuratie-analyse van firewalls en core-routers, herbruikbare query's).
 
-> Gegeneraliseerd uit een concrete gemeentelijke casus. Pas de voorbeelden aan op je eigen tenant,
-> leveranciers en omgeving. Let bij maatregelen die verkeer of gebruik inzichtelijk maken
+> Gegeneraliseerd uit een concrete gemeentelijke casus. Pas de voorbeelden aan op je eigen gemeente, leverandiers,
+> en tenant. Let bij maatregelen die verkeer of gebruik inzichtelijk maken
 > (zoals TLS-decryptie of script-logging) op privacy, BIO2 en eventuele OR-/medezeggenschapstrajecten.
 
 ## Drie uitgangspunten
@@ -33,9 +33,13 @@ Dit document is deels **managerial** (regie, strategie, besluitvorming) en deels
 | [07-veilig-faciliteren.md](07-veilig-faciliteren.md) | Bestuur, CISO | Langetermijnstrategie i.p.v. dichttimmeren |
 | [queries/](queries/) | Beheer, security | Herbruikbare KQL voor Advanced Hunting |
 
-## Gebruik in Claude Code
+## Gebruik in AI
 
-Deze repo is bedoeld als basis om mee te werken in Claude Code:
+Deze repo is bedoeld als basis om mee te werken in je favoriete LLM, die van ons Claude Code (ja hyperscaler):
+> Heb je een betere lokale LLM op deftige hardware doe het dan daar in. Gaan AI gebruiken omdat je alles 100% zelf
+> kan en weet, helemaal top ! Kan je het niet 100% zelf en moet je AI gebruiken en niet de beschikking over deftige hardware
+> maak een risicoafweging. Wat is het risico op het niet gebruiken van een US AI (met het zetten van de juiste vinkjes) tov
+> niet gebruik vanwege mogelijk misbruik van de data door de US AI. 
 
 1. Clone of importeer de repo en open hem in Claude Code.
 2. Gebruik de bestanden in [`queries/`](queries/) als startpunt voor je eigen Advanced Hunting-analyses;
